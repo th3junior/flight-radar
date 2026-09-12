@@ -186,21 +186,21 @@ rad = radiusKm / 111.0;
             constexpr int LINE = 20;
 
             backbuffer.drawString(
-                "ALT " + String((int)tracked.state.baroAltitude) + " m",
+                "ALT: " + String((int)tracked.state.baroAltitude) + " m",
                 CENTRE,
                 y);
 
             y += LINE;
 
             backbuffer.drawString(
-                "SPD " + String((int)tracked.state.velocity) + " m/s",
+                "SPD: " + String((int)(tracked.state.velocity * 3.6)) + " km/h",
                 CENTRE,
                 y);
 
             y += LINE;
 
             backbuffer.drawString(
-                "HDG " + String((int)tracked.state.trueTrack) + " deg",
+                "HDG: " + String((int)tracked.state.trueTrack) + " deg",
                 CENTRE,
                 y);
 
