@@ -7,5 +7,10 @@ class RadarRenderer
 public:
     RadarRenderer() = default;
 
-    void DrawBackground(LGFX_Sprite &buffer, int centerX, int centerY, int radius);
+    void DrawBackground(
+        LGFX_Sprite &buffer,
+        int centerX,
+        int centerY,
+        int radius,
+        float rangeKm);
 };

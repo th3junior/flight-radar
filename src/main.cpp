@@ -138,8 +138,9 @@ radarRenderer.DrawBackground(
     backbuffer,
     SCREEN_SIZE_DIV_2 - 1,
     SCREEN_SIZE_DIV_2 - 1,
-    SCREEN_SIZE_DIV_2 - 5);
-
+    SCREEN_SIZE_DIV_2 - 5,
+    aircraftManager.GetRadarRangeKm());
+    
   String renderScanlines = configServer.GetStoredString("scanline");
   if (renderScanlines.isEmpty() || renderScanlines == "true")
   {

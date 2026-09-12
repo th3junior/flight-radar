@@ -4,7 +4,8 @@ void RadarRenderer::DrawBackground(
     LGFX_Sprite &buffer,
     int centerX,
     int centerY,
-    int radius)
+    int radius,
+    float rangeKm)
 {
     buffer.fillScreen(TFT_BLACK);
 
@@ -13,7 +14,10 @@ void RadarRenderer::DrawBackground(
     const uint32_t centerColor = lgfx::color888(0, 255, 100);
     const uint32_t textColor   = lgfx::color888(0, 220, 100);
 
-    // Círculo externo
+    // ==============================
+    // CÍRCULOS DO RADAR
+    // ==============================
+
     buffer.drawCircle(
         centerX,
         centerY,
@@ -21,7 +25,6 @@ void RadarRenderer::DrawBackground(
         outerColor
     );
 
-    // Círculos internos
     buffer.drawCircle(
         centerX,
         centerY,
@@ -36,7 +39,10 @@ void RadarRenderer::DrawBackground(
         gridColor
     );
 
-    // Linha horizontal
+    // ==============================
+    // LINHAS DE REFERÊNCIA
+    // ==============================
+
     buffer.drawLine(
         centerX - radius,
         centerY,
@@ -45,7 +51,6 @@ void RadarRenderer::DrawBackground(
         gridColor
     );
 
-    // Linha vertical
     buffer.drawLine(
         centerX,
         centerY - radius,
@@ -62,7 +67,6 @@ void RadarRenderer::DrawBackground(
     buffer.setTextSize(1);
     buffer.setTextDatum(middle_center);
 
-    // Mantém as letras dentro do radar
     const int labelOffset = radius - 10;
 
     // Norte
@@ -117,6 +121,20 @@ void RadarRenderer::DrawBackground(
         centerY
     );
 
+    // ==============================
+    // ESCALA
+    // ==============================
+String rangeText = String((int)rangeKm) + " km";
+
+buffer.setTextColor(textColor);
+buffer.setTextSize(1);
+buffer.setTextDatum(middle_center);
+
+buffer.drawString(
+    rangeText,
+    centerX,
+    centerY + radius - 20
+);
     // ==============================
     // CENTRO DO RADAR
     // ==============================

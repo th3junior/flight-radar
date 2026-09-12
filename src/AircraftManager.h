@@ -42,6 +42,7 @@ public:
     void Initialise();
     void Update();
     void Draw(LGFX_Sprite &backbuffer);
+    float GetRadarRangeKm() const;
     uint32_t GetAircraftColour(const TrackedAircraft &tracked) const;
     void SelectNextAircraft();
     void SelectPreviousAircraft();
