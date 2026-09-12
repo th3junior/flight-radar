@@ -46,7 +46,8 @@
             // get centre point + radius
             lat = configServer.GetStoredString("latitude").toDouble();
             lon = configServer.GetStoredString("longitude").toDouble();
-            rad = configServer.GetStoredString("radius").toDouble();
+            const double radiusKm = configServer.GetStoredString("radius").toDouble();
+rad = radiusKm / 111.0;
 
             // configuration
             const String renderText = configServer.GetStoredString("infotext");
