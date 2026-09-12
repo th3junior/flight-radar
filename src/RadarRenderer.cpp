@@ -9,10 +9,10 @@ void RadarRenderer::DrawBackground(
 {
     buffer.fillScreen(TFT_BLACK);
 
-    const uint32_t outerColor  = lgfx::color888(0, 180, 80);
-    const uint32_t gridColor   = lgfx::color888(0, 70, 35);
+    const uint32_t outerColor = lgfx::color888(0, 180, 80);
+    const uint32_t gridColor = lgfx::color888(0, 70, 35);
     const uint32_t centerColor = lgfx::color888(0, 255, 100);
-    const uint32_t textColor   = lgfx::color888(0, 220, 100);
+    const uint32_t textColor = lgfx::color888(0, 220, 100);
 
     // ==============================
     // CÍRCULOS DO RADAR
@@ -22,22 +22,31 @@ void RadarRenderer::DrawBackground(
         centerX,
         centerY,
         radius,
-        outerColor
-    );
+        outerColor);
 
     buffer.drawCircle(
         centerX,
         centerY,
         radius * 2 / 3,
-        gridColor
-    );
+        gridColor);
+
+    buffer.drawCircle(
+        centerX,
+        centerY,
+        radius * 2 / 3 - 1,
+        gridColor);
 
     buffer.drawCircle(
         centerX,
         centerY,
         radius / 3,
-        gridColor
-    );
+        gridColor);
+
+    buffer.drawCircle(
+        centerX,
+        centerY,
+        radius / 3 - 1,
+        gridColor);
 
     // ==============================
     // LINHAS DE REFERÊNCIA
@@ -48,16 +57,14 @@ void RadarRenderer::DrawBackground(
         centerY,
         centerX + radius,
         centerY,
-        gridColor
-    );
+        gridColor);
 
     buffer.drawLine(
         centerX,
         centerY - radius,
         centerX,
         centerY + radius,
-        gridColor
-    );
+        gridColor);
 
     // ==============================
     // PONTOS CARDEAIS
@@ -73,68 +80,59 @@ void RadarRenderer::DrawBackground(
     buffer.drawString(
         "N",
         centerX,
-        centerY - labelOffset
-    );
+        centerY - labelOffset);
 
     buffer.drawString(
         "N",
         centerX + 1,
-        centerY - labelOffset
-    );
+        centerY - labelOffset);
 
     // Sul
     buffer.drawString(
         "S",
         centerX,
-        centerY + labelOffset
-    );
+        centerY + labelOffset);
 
     buffer.drawString(
         "S",
         centerX + 1,
-        centerY + labelOffset
-    );
+        centerY + labelOffset);
 
     // Oeste
     buffer.drawString(
         "W",
         centerX - labelOffset,
-        centerY
-    );
+        centerY);
 
     buffer.drawString(
         "W",
         centerX - labelOffset + 1,
-        centerY
-    );
+        centerY);
 
     // Leste
     buffer.drawString(
         "E",
         centerX + labelOffset,
-        centerY
-    );
+        centerY);
 
     buffer.drawString(
         "E",
         centerX + labelOffset + 1,
-        centerY
-    );
+        centerY);
 
     // ==============================
     // ESCALA
     // ==============================
-String rangeText = String((int)rangeKm) + " km";
+    String rangeText = String((int)rangeKm) + " km";
 
-buffer.setTextColor(textColor);
-buffer.setTextSize(1);
-buffer.setTextDatum(middle_center);
+    buffer.setTextColor(textColor);
+    buffer.setTextSize(1);
+    buffer.setTextDatum(middle_center);
 
-buffer.drawString(
-    rangeText,
-    centerX + radius - 20,
-    centerY + 8
-);
+    buffer.drawString(
+        rangeText,
+        centerX + radius - 20,
+        centerY + 8);
     // ==============================
     // CENTRO DO RADAR
     // ==============================
@@ -143,6 +141,5 @@ buffer.drawString(
         centerX,
         centerY,
         2,
-        centerColor
-    );
+        centerColor);
 }
