@@ -132,8 +132,8 @@ buffer.setTextDatum(middle_center);
 
 buffer.drawString(
     rangeText,
-    centerX,
-    centerY + radius - 20
+    centerX + radius - 20,
+    centerY + 8
 );
     // ==============================
     // CENTRO DO RADAR
