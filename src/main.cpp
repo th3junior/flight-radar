@@ -9,6 +9,7 @@
 #include "OpenSkyAuthTokenHandler.h"
 #include "AircraftManager.h"
 #include "DrawHelpers.h"
+#include "RadarRenderer.h"
 #include "models/Aircraft.h"
 #include "models/TrackedAircraft.h"
 #include <ESP32Encoder.h>
@@ -30,6 +31,7 @@ constexpr int SCREEN_SIZE_DIV_2 = (SCREEN_SIZE / 2);
 
 LGFX tft;
 LGFX_Sprite backbuffer(&tft);
+RadarRenderer radarRenderer;
 
 WiFiManager wm;
 ConfigurationWebServer configServer;
@@ -132,7 +134,11 @@ void loop()
   aircraftManager.Update();
 
   // draw cycle
-  backbuffer.fillScreen(lgfx::color888(0, 0, 0));
+radarRenderer.DrawBackground(
+    backbuffer,
+    SCREEN_SIZE_DIV_2 - 1,
+    SCREEN_SIZE_DIV_2 - 1,
+    SCREEN_SIZE_DIV_2 - 5);
 
   String renderScanlines = configServer.GetStoredString("scanline");
   if (renderScanlines.isEmpty() || renderScanlines == "true")
