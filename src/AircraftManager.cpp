@@ -223,14 +223,14 @@ backbuffer.setTextColor(
     lgfx::color888(0, 100, 0));
 
 backbuffer.drawString(
-    "< Rotate >",
+    "< Gire >",
     CENTRE,
     y);
 
 y += 15;
 
 backbuffer.drawString(
-    "Click to return",
+    "Clique para voltar",
     CENTRE,
     y);
             }

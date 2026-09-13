@@ -6,13 +6,14 @@
 static const char CONFIG_HTML[] PROGMEM = R"(
 <html>
     <head>
+    <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Configure Micro Radar</title>
+        <title>Configurar Plane Radar X</title>
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.0"></script>
     </head>
     <body class="font-mono bg-gray-900 text-green-500 min-h-screen p-4 sm:p-0 text-md sm:text-sm">
         <fieldset class="border border-green-500 p-5 w-full max-w-2xl mx-auto sm:m-10">
-            <legend class="px-2">Configure Micro Radar</legend>
+            <legend class="px-2">Configurar Plane Radar X</legend>
 
             <form id="cfg" action="/save" method="POST" class="flex flex-col gap-4 sm:gap-2">
 
@@ -43,7 +44,7 @@ static const char CONFIG_HTML[] PROGMEM = R"(
                 </div>
 
                 <label class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-                    <span>Radar range (km):</span>
+                    <span>Alcance do Radar (km):</span>
                     <input
                         name="radius"
                         type="number"
@@ -72,7 +73,7 @@ static const char CONFIG_HTML[] PROGMEM = R"(
 
                 <div class="flex flex-col sm:flex-row gap-4 sm:justify-between">
                     <label class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-                        <span>Radar sweep:</span>
+                        <span>Varredura do Radar:</span>
                         <input
                             name="scanline"
                             type="checkbox"
@@ -80,7 +81,7 @@ static const char CONFIG_HTML[] PROGMEM = R"(
                             class="px-3 sm:px-1 accent-green-500">
                     </label>
                     <label class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-                        <span>Aircraft Info:</span>
+                        <span>Informações da aeronave:</span>
                         <input
                             name="infotext"
                             type="checkbox"
@@ -88,7 +89,7 @@ static const char CONFIG_HTML[] PROGMEM = R"(
                             class="px-3 sm:px-1 accent-green-500">
                     </label>
                     <label class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-                        <span>Directional Aircraft:</span>
+                        <span>Aeronaves direcionais:</span>
                         <input
                             name="triangle"
                             type="checkbox"
@@ -100,7 +101,7 @@ static const char CONFIG_HTML[] PROGMEM = R"(
                 <div class="flex flex-col sm:flex-row gap-4 sm:gap-5">
                     <input
                         type="submit"
-                        value="Save"
+                        value="Salvar"
                         class="bg-green-500 text-black mt-4 px-4 py-3 text-lg sm:text-base sm:px-2 sm:py-0 self-start cursor-pointer">
 
                         <div id="result" class="mt-4 px-1 sm:px-10"></div>
@@ -202,7 +203,7 @@ void ConfigurationWebServer::Initialise()
         prefs.putString("infotext", request->hasParam("infotext", true) ? "true" : "false");
         prefs.end();
 
-        request->send(200, "text/html", "Saved - restarting device...");
+        request->send(200, "text/html", "Salvo - reiniciando dispositivo...");
         ESP.restart(); });
 
     server.begin();
