@@ -32,6 +32,10 @@ private:
     void DrawAircraftTriangle(LGFX_Sprite &backbuffer, int x, int y, const TrackedAircraft &tracked, bool selected) const;
     void DrawAircraftTriangle(LGFX_Sprite &backbuffer, int x, int y, const TrackedAircraft &tracked) const;
 
+float CalculateDistanceKm(
+    float aircraftLat,
+    float aircraftLon) const;
+
 public:
     AircraftManager(ConfigurationWebServer &config, OpenSkyAuthTokenHandler &auth, HttpRequestManager &httpManager, LGFX &tftGfx)
         : configServer(config), authHandler(auth), http(httpManager), tft(tftGfx)
