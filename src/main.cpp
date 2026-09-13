@@ -77,7 +77,20 @@ void setup()
   // establish WiFi connection
   tft.fillScreen(lgfx::color888(0, 0, 0));
   tft.setTextColor(lgfx::color888(0, 255, 0));
-  tft.drawCentreString("Connecting to WiFi...", SCREEN_SIZE / 2, SCREEN_SIZE / 2);
+
+  tft.setTextSize(2);
+
+tft.drawCentreString(
+    "Plane Radar X",
+    SCREEN_SIZE / 2,
+    SCREEN_SIZE / 2 - 25);
+
+tft.setTextSize(1);
+
+tft.drawCentreString(
+    "Conectando ao WiFi...",
+    SCREEN_SIZE / 2,
+    SCREEN_SIZE / 2 + 10);
 
   SetLed(255, 255, 0); // WiFi connecting
 

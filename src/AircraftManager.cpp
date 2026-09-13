@@ -315,7 +315,7 @@ backbuffer.drawString(
                             y,
                             selected ? 5 : 3,
                             selected
-                                ? lgfx::color888(0, 0, 255)
+                                ? lgfx::color888(255, 0, 0)
                                 : lgfx::color888(0, 255, 0));
                     }
                 }
