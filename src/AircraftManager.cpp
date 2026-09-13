@@ -17,29 +17,23 @@
             int selectedAircraftIndex = 0;
             std::vector<TrackedAircraft *> visibleAircraft;
 
-            static const uint32_t AircraftColours[] =
-                {
-                    lgfx::color888(0, 255, 128),   // Radar green
-                    lgfx::color888(0, 220, 255),   // Cyan
-                    lgfx::color888(0, 128, 255),   // Electric blue
-                    lgfx::color888(100, 200, 255), // Sky blue
-                    lgfx::color888(160, 130, 255), // Soft violet
-                    lgfx::color888(220, 80, 255),  // Magenta
-                    lgfx::color888(255, 50, 150),  // Hot pink
-                    lgfx::color888(255, 60, 60),   // Coral red
-                    lgfx::color888(255, 120, 0),   // Burnt orange
-                    lgfx::color888(255, 190, 0),   // Amber
-                    lgfx::color888(255, 235, 0),   // Neon yellow
-                    lgfx::color888(180, 255, 0),   // Acid lime
-                    lgfx::color888(80, 255, 180),  // Mint
-                    lgfx::color888(0, 200, 180),   // Teal
-                    lgfx::color888(50, 180, 255),  // Cornflower
-                    lgfx::color888(255, 160, 100), // Peach
-                    lgfx::color888(255, 210, 160), // Warm cream
-                    lgfx::color888(140, 255, 140), // Pale green
-                    lgfx::color888(200, 160, 255), // Lavender
-                    lgfx::color888(255, 120, 200)  // Pink
-            };
+static const uint32_t AircraftColours[] =
+{
+    lgfx::color888(0, 255, 128),   // Radar green
+    lgfx::color888(0, 220, 255),   // Cyan
+    lgfx::color888(0, 128, 255),   // Electric blue
+    lgfx::color888(220, 80, 255),  // Magenta
+    lgfx::color888(255, 50, 150),  // Hot pink
+    lgfx::color888(255, 60, 60),   // Coral red
+    lgfx::color888(255, 120, 0),   // Burnt orange
+    lgfx::color888(255, 190, 0),   // Amber
+    lgfx::color888(255, 235, 0),   // Neon yellow
+    lgfx::color888(180, 255, 0),   // Acid lime
+    lgfx::color888(80, 255, 180),  // Mint
+    lgfx::color888(0, 200, 180),   // Teal
+    lgfx::color888(50, 180, 255),  // Cornflower
+    lgfx::color888(255, 120, 200)  // Pink
+};
 
             void AircraftManager::Initialise()
             {
@@ -219,7 +213,7 @@ backbuffer.drawString(
 y += LINE;
 
 backbuffer.drawString(
-    tracked.state.icao24,
+    "ICAO24: " + tracked.state.icao24,
     CENTRE,
     y);
 
