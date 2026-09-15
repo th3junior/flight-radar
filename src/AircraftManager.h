@@ -32,9 +32,9 @@ private:
     void DrawAircraftTriangle(LGFX_Sprite &backbuffer, int x, int y, const TrackedAircraft &tracked, bool selected) const;
     void DrawAircraftTriangle(LGFX_Sprite &backbuffer, int x, int y, const TrackedAircraft &tracked) const;
 
-float CalculateDistanceKm(
-    float aircraftLat,
-    float aircraftLon) const;
+    float CalculateDistanceKm(
+        float aircraftLat,
+        float aircraftLon) const;
 
 public:
     AircraftManager(ConfigurationWebServer &config, OpenSkyAuthTokenHandler &auth, HttpRequestManager &httpManager, LGFX &tftGfx)
@@ -52,4 +52,5 @@ public:
     void SelectPreviousAircraft();
     void DrawDetails(LGFX_Sprite &backbuffer);
     void EncoderClick();
+    bool IsApiOnline() const;
 };

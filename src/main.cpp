@@ -80,17 +80,17 @@ void setup()
 
   tft.setTextSize(2);
 
-tft.drawCentreString(
-    "Plane Radar X",
-    SCREEN_SIZE / 2,
-    SCREEN_SIZE / 2 - 25);
+  tft.drawCentreString(
+      "Plane Radar X",
+      SCREEN_SIZE / 2,
+      SCREEN_SIZE / 2 - 25);
 
-tft.setTextSize(1);
+  tft.setTextSize(1);
 
-tft.drawCentreString(
-    "Conectando ao WiFi...",
-    SCREEN_SIZE / 2,
-    SCREEN_SIZE / 2 + 10);
+  tft.drawCentreString(
+      "Conectando ao WiFi...",
+      SCREEN_SIZE / 2,
+      SCREEN_SIZE / 2 + 10);
 
   SetLed(255, 255, 0); // WiFi connecting
 
@@ -143,17 +143,16 @@ void loop()
 
   lastButtonState = currentButtonState;
 
-  SetLed(0, 255, 255); // Fetching
   aircraftManager.Update();
 
   // draw cycle
-radarRenderer.DrawBackground(
-    backbuffer,
-    SCREEN_SIZE_DIV_2 - 1,
-    SCREEN_SIZE_DIV_2 - 1,
-    SCREEN_SIZE_DIV_2 - 5,
-    aircraftManager.GetRadarRangeKm());
-    
+  radarRenderer.DrawBackground(
+      backbuffer,
+      SCREEN_SIZE_DIV_2 - 1,
+      SCREEN_SIZE_DIV_2 - 1,
+      SCREEN_SIZE_DIV_2 - 5,
+      aircraftManager.GetRadarRangeKm());
+
   String renderScanlines = configServer.GetStoredString("scanline");
   if (renderScanlines.isEmpty() || renderScanlines == "true")
   {
@@ -168,5 +167,12 @@ radarRenderer.DrawBackground(
   aircraftManager.Draw(backbuffer);
   backbuffer.pushSprite(0, 0);
 
-  SetLed(0, 255, 0); // Running
+  if (aircraftManager.IsApiOnline())
+  {
+    SetLed(0, 255, 0); // API OK
+  }
+  else
+  {
+    SetLed(255, 0, 0); // API error
+  }
 }
