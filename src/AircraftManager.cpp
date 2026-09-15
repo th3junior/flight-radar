@@ -150,7 +150,7 @@ void AircraftManager::DrawDetails(LGFX_Sprite &backbuffer)
     {
         backbuffer.setTextColor(lgfx::color888(0, 255, 0));
         backbuffer.setTextDatum(textdatum_t::middle_center);
-        backbuffer.drawString("NO AIRCRAFT", CENTRE, CENTRE);
+        backbuffer.drawString("SEM AERONAVES", CENTRE, CENTRE);
         return;
     }
 
@@ -241,6 +241,15 @@ void AircraftManager::DrawDetails(LGFX_Sprite &backbuffer)
 
 void AircraftManager::EncoderClick()
 {
+    if (adjustingRange)
+    {
+        adjustingRange = false;
+
+        Serial.println("Ajuste de alcance finalizado");
+
+        return;
+    }
+
     currentScreen =
         (currentScreen == SCREEN_RADAR)
             ? SCREEN_DETAILS
@@ -250,6 +259,50 @@ void AircraftManager::EncoderClick()
 void AircraftManager::Draw(LGFX_Sprite &backbuffer)
 {
     visibleAircraft.clear();
+
+    if (adjustingRange)
+    {
+        backbuffer.fillScreen(TFT_BLACK);
+
+        backbuffer.setTextColor(
+            lgfx::color888(0, 255, 0));
+
+        backbuffer.setTextDatum(
+            textdatum_t::middle_center);
+
+        backbuffer.setTextSize(2);
+
+        backbuffer.drawString(
+            "ALCANCE",
+            SCREEN_SIZE_DIV_2,
+            SCREEN_SIZE_DIV_2 - 30);
+
+        backbuffer.setTextSize(3);
+
+        backbuffer.drawString(
+            String((int)GetRadarRangeKm()) + " KM",
+            SCREEN_SIZE_DIV_2,
+            SCREEN_SIZE_DIV_2 + 5);
+
+        backbuffer.setTextSize(1);
+
+        backbuffer.setTextColor(
+            lgfx::color888(0, 100, 0));
+
+        backbuffer.setTextColor(
+            lgfx::color888(0, 100, 0));
+
+        backbuffer.drawString(
+            "< Gire >",
+            SCREEN_SIZE_DIV_2,
+            SCREEN_SIZE_DIV_2 + 35);
+
+        backbuffer.drawString(
+            "CLIQUE PARA CONFIRMAR",
+            SCREEN_SIZE_DIV_2,
+            SCREEN_SIZE_DIV_2 + 55);
+        return;
+    }
 
     for (auto &[icao, tracked] : trackedAircraft)
     {
@@ -538,4 +591,38 @@ void AircraftManager::DrawAircraftTriangle(
 bool AircraftManager::IsApiOnline() const
 {
     return apiOnline;
+}
+
+void AircraftManager::EncoderLongPress()
+{
+    if (adjustingRange)
+        return;
+
+    adjustingRange = true;
+
+    Serial.println("Modo ajuste de alcance: ON");
+}
+
+void AircraftManager::EncoderRotate(bool clockwise)
+{
+    if (adjustingRange)
+    {
+        if (clockwise)
+            rad -= 5.0 / 111.0;
+        else
+            rad += 5.0 / 111.0;
+
+        rad = constrain(rad, 5.0 / 111.0, 500.0 / 111.0);
+
+        Serial.print("Alcance: ");
+        Serial.print(GetRadarRangeKm());
+        Serial.println(" km");
+
+        return;
+    }
+
+    if (clockwise)
+        SelectNextAircraft();
+    else
+        SelectPreviousAircraft();
 }

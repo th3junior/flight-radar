@@ -121,27 +121,47 @@ void loop()
   {
     if (pos > lastEncoderPos)
     {
-      aircraftManager.SelectNextAircraft();
+      aircraftManager.EncoderRotate(true);
     }
     else
     {
-      aircraftManager.SelectPreviousAircraft();
+      aircraftManager.EncoderRotate(false);
     }
 
     lastEncoderPos = pos;
   }
 
-  static bool lastButtonState = HIGH;
+static bool lastButtonState = HIGH;
+static unsigned long buttonPressStart = 0;
+static bool longPressTriggered = false;
 
-  bool currentButtonState = digitalRead(ENCODER_SW);
+bool currentButtonState = digitalRead(ENCODER_SW);
 
-  if (lastButtonState == HIGH &&
-      currentButtonState == LOW)
-  {
-    aircraftManager.EncoderClick();
-  }
+if (lastButtonState == HIGH &&
+    currentButtonState == LOW)
+{
+    buttonPressStart = millis();
+    longPressTriggered = false;
+}
 
-  lastButtonState = currentButtonState;
+if (currentButtonState == LOW &&
+    !longPressTriggered &&
+    millis() - buttonPressStart >= 2000)
+{
+    aircraftManager.EncoderLongPress();
+    longPressTriggered = true;
+}
+
+if (lastButtonState == LOW &&
+    currentButtonState == HIGH)
+{
+    if (!longPressTriggered)
+    {
+        aircraftManager.EncoderClick();
+    }
+}
+
+lastButtonState = currentButtonState;
 
   aircraftManager.Update();
 

@@ -17,6 +17,7 @@ private:
 
     bool displayInfoText = true;
     bool displayTriangles = true;
+    bool adjustingRange = false;
 
     unsigned long fetchInterval = 0;
     unsigned long lastFetch = 999999;
@@ -50,7 +51,11 @@ public:
     uint32_t GetAircraftColour(const TrackedAircraft &tracked) const;
     void SelectNextAircraft();
     void SelectPreviousAircraft();
+    void EncoderRotate(bool clockwise);
     void DrawDetails(LGFX_Sprite &backbuffer);
     void EncoderClick();
+    void EncoderLongPress();
     bool IsApiOnline() const;
+    
+    
 };
